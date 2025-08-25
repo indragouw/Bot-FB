@@ -7,10 +7,15 @@
     "start:video": "node bot/autokomenvideo.js",
     "start:group": "node bot/autokomengroup.js",
     "start:postgroup": "node bot/postgroup.js",
+    "start:reels": "node bot/autoreels.js",
     "start:teman": "node bot/autokomenteman.js"
   },
   "dependencies": {
     "puppeteer": "^22.12.1",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "tiktokdl": "^0.0.5"
+  },
+   "devDependencies": {
+    "terser": "^5.43.1"
   }
 }
