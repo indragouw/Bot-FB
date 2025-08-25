@@ -3,10 +3,10 @@ name: Facebook Video Comment Bot
 on:
   # Memungkinkan Anda menjalankan bot secara manual dari tab "Actions"
   workflow_dispatch:
-  
+
   # Menjalankan bot secara otomatis sesuai jadwal
   schedule:
-    # Contoh: Jalankan setiap 6 jam sekali
+    # Contoh: Jalankan setiap 2 jam sekali
     - cron: '0 */2 * * *'
 
 jobs:
@@ -30,15 +30,13 @@ jobs:
           node-version: '18'
 
       - name: 3. Install Dependencies
-        # Menjalankan instalasi package, termasuk node-fetch
         run: npm install
 
       - name: 4. Run the Video Bot
-        # Menjalankan skrip index.js (bot video)
-        # Pastikan Anda sudah menambahkan "start:video": "node index.js" di package.json
         run: npm run start:video
         env:
           # Mengambil cookies dan email lisensi dari GitHub Secrets
+          # GEMINI_API_KEY sudah tidak diperlukan di sini
           FACEBOOK_COOKIES: ${{ secrets.FACEBOOK_COOKIES }}
           BOT_LICENSE_EMAIL: ${{ secrets.BOT_LICENSE_EMAIL }}
 
@@ -48,12 +46,11 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
           git pull
-          # Menargetkan file log khusus untuk video
+          
           LOG_FILE="ceklink.txt"
 
           if [ -s $LOG_FILE ]; then
             git add $LOG_FILE
-            # Hanya commit jika ada perubahan yang siap di-commit
             if ! git diff --staged --quiet; then
               git commit -m "Update video comment log ($LOG_FILE)"
               git push
@@ -65,7 +62,6 @@ jobs:
           fi
       
       - name: 6. Upload Debug Screenshots
-        # Selalu jalankan langkah ini, meskipun bot gagal, untuk membantu debugging
         if: always()
         uses: actions/upload-artifact@v4
         with:
