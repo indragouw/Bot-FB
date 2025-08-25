@@ -21,7 +21,18 @@ Sebelum menggunakan, harap pahami dan setujui aturan lisensi berikut:
 
 ## ✨ Fitur Unggulan & Panduan Konfigurasi
 
-Bot ini terbagi menjadi tiga mode utama. Berikut penjelasan fitur dan cara mengkonfigurasinya.
+#### **⭐ Integrasi Gemini AI untuk Komentar Cerdas (Fitur Baru!)**
+
+Bot Komen Video, Grup, dan Teman sekarang dapat membuat komentar yang relevan secara otomatis!
+
+* **Fungsi**: Jika diaktifkan, bot akan membaca caption postingan target dan mengirimkannya ke Google Gemini AI untuk dibuatkan komentar yang natural dan sesuai konteks.
+* **Fallback API Key**: Bot akan membaca daftar kunci API dari `gemini_keys.txt`. Jika satu kunci gagal (error atau limit), bot akan otomatis mencoba kunci berikutnya di dalam daftar, membuatnya lebih andal.
+* **Sisipan CTA**: Bot akan secara otomatis menambahkan link dari `cta_link.txt` di akhir setiap komentar yang dibuat oleh AI.
+* **Cara Konfigurasi**:
+    * **Aktifkan/Nonaktifkan**: Buka file `config` yang sesuai (misal: `configkomengroup.json`), cari bagian `ai_settings`, dan ubah `"enabled"` menjadi `true` atau `false`.
+    * **Kunci API**: Buka `gemini_keys.txt` dan masukkan semua kunci API Gemini Anda, satu kunci per baris.
+    * **Link CTA**: Buka `cta_link.txt` dan masukkan satu link yang ingin Anda promosikan.
+    * **Edit Perintah AI**: Anda bisa mengubah `gemini_prompt` di dalam setiap file `config` untuk menyesuaikan gaya komentar yang dihasilkan AI.
 
 ### 1. Bot Auto Komen Video
 * **File Bot:** `bot/autokomenvideo.js`
@@ -46,11 +57,15 @@ Bot ini terbagi menjadi tiga mode utama. Berikut penjelasan fitur dan cara mengk
 * **Fungsi:** Fitur paling *powerful*! Bot ini akan **memposting konten secara berurutan** ke daftar grup yang telah Anda tentukan.
 * **Konten Bervariasi**: Mengambil konten postingan dari `post_content.txt` secara berurutan dan berulang (*looping*), sehingga setiap grup bisa mendapatkan postingan yang berbeda.
 
-
 #### **Cara Konfigurasi:**
 * **Jeda Waktu**: Buka file `config/configpostgroup.json` untuk mengatur jeda waktu antar postingan dan jeda untuk pratinjau link.
 * **Target Grup**: Buka file `target_groups.txt` dan masukkan semua URL grup target Anda, satu URL per baris.
 * **Isi Postingan**: Buka file `post_content.txt` untuk mengatur semua variasi konten yang ingin Anda posting. Pisahkan setiap konten dengan `---`.
+
+#### 4. Bot Auto Komen Teman
+* **File**: `bot/autokomenteman.js` & `config/configautokomenteman.json`
+* **Fungsi**: Berinteraksi dengan postingan di **Feed Teman**.
+* **Anti-Duplikat**: Menggunakan Anti Duplikat untuk memastikan bot terus bergerak ke postingan selanjutnya.
 
 ---
 
@@ -109,22 +124,12 @@ Bot ini memerlukan dua "kunci rahasia" (Secrets) untuk bisa login dan tervalidas
 
 Edit file-file berikut langsung di GitHub untuk mengatur perilaku bot.
 
-#### **A. Pilih Bot yang Akan Dijalankan**
-1.  Buka file `.github/workflows/main.yml`.
-2.  Klik ikon pensil untuk mengedit.
-3.  Cari bagian **`Run the Bot`** (biasanya di sekitar Langkah 4).
-4.  Ubah baris `run:` sesuai bot yang ingin Anda aktifkan:
-    * Untuk **Bot Komen Video**: `run: npm run start:video`
-    * Untuk **Bot Komen Grup**: `run: npm run start:group`
-    * Untuk **Bot Posting Grup**: `run: npm run start:postgroup`
-5.  Klik **`Commit changes...`** untuk menyimpan.
-
-#### **B. Atur Target & Jeda Waktu**
+#### **A. Atur Target & Jeda Waktu**
 * **Jika menjalankan Bot Komen Video:** Buka dan edit file `config/configkomenvideo.json`.
 * **Jika menjalankan Bot Komen Grup:** Buka dan edit file `config/configkomengroup.json`.
 * **Jika menjalankan Bot Posting Grup:** Buka dan edit file `config/configpostgroup.json`.
 
-#### **C. Siapkan Konten & Target**
+#### **B. Siapkan Konten & Target**
 * **Untuk Komentar (`comments.txt`):** Isi dengan variasi komentar Anda. Pisahkan setiap komentar dengan `---` pada baris baru.
 * **Untuk Posting (`post_content.txt`):** Isi dengan variasi konten postingan Anda. Pisahkan setiap konten dengan `---`.
 * **Untuk Target Grup (`target_groups.txt`):** Isi dengan URL lengkap grup-grup target Anda, satu URL per baris.
