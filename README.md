@@ -62,7 +62,7 @@ Bot Komen Video, Grup, dan Teman sekarang dapat membuat komentar yang relevan se
 * **Target Grup**: Buka file `target_groups.txt` dan masukkan semua URL grup target Anda, satu URL per baris.
 * **Isi Postingan**: Buka file `post_content.txt` untuk mengatur semua variasi konten yang ingin Anda posting. Pisahkan setiap konten dengan `---`.
 
-#### 4. Bot Auto Komen Teman
+### 4. Bot Auto Komen Teman
 * **File**: `bot/autokomenteman.js` & `config/configautokomenteman.json`
 * **Fungsi**: Berinteraksi dengan postingan di **Feed Teman**.
 * **Anti-Duplikat**: Menggunakan Anti Duplikat untuk memastikan bot terus bergerak ke postingan selanjutnya.
